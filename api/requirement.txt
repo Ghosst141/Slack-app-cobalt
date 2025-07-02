@@ -1,0 +1,6 @@
+express
+nodemon
+dotenv
+better-sqlite3
+cors
+axios
