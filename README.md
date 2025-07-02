@@ -23,6 +23,15 @@ A full-stack web application to connect Slack workspaces, send messages instantl
 ✅ Full CORS-protected frontend-backend communication  
 ✅ SQLite database for token and message storage  
 
+
+---
+
+## Github repos
+
+- **Frontend:** [Frontend Repo](https://github.com/Ghosst141/Slack-APP-frontend) 
+- **Backend:** [Backend Repo](https://github.com/Ghosst141/Slack-APP-backend)  
+
+
 ---
 
 ## Live Demo
@@ -49,6 +58,7 @@ api/                 // Node.js backend
 
 
 ---
+
 
 ## Setup Instructions (Local Development)
 
@@ -133,6 +143,12 @@ Enable the following:
 
 - Copy the Client ID and Client Secret into your .env files
 
+
+
+---
+
+
+
 ## Architectural Overview
 ### Frontend:
 
@@ -154,7 +170,14 @@ Enable the following:
 
 - Automatic refresh logic if access token expires during message send
 
+
+---
+
+
+
 ## Challenges & Learnings
+
+
 1) Scheduled Messages Not Working After Deployment?
    - Likely reasons:
 
@@ -173,6 +196,11 @@ Enable the following:
 
 3) Refresh Token Logic:
     - Slack uses refresh tokens for long-term access. Refresh flow implemented in slackServices.ts ensures seamless user experience without repeated login.
+
+
+
+---
+
 
 # Author
 Om patel
