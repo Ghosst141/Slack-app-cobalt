@@ -9,7 +9,7 @@ A full-stack web application to connect Slack workspaces, send messages instantl
 - **Frontend:** React + TypeScript + Tailwind CSS  
 - **Backend:** Node.js + Express + TypeScript  
 - **Database:** SQLite (via better-sqlite3)  
-- **Deployment:** Vercel (Frontend) | Render/Northflank/Railway (Backend)  
+- **Deployment:** Vercel (Frontend) | Render (Backend)  
 
 ---
 
@@ -112,7 +112,7 @@ Install and run ngrok:
 
 ngrok http 3000
 ```
-Copy the generated URL (e.g., https://random-string.ngrok.io) and add :
+Copy the generated URL (e.g., https://random-string.ngrok.io) and then :
 
 - Replace SLACK_REDIRECT_URI in your backend .env by adding /auth/callback at end of generated URL
 - Replace VITE_API_END in your frontend .env
@@ -125,23 +125,25 @@ Go to https://api.slack.com/apps
 
 Click Create New App
 
-Enable the following:
+- select you slack APP that you created:
+   - got to basic information and copy client Id and client seceret in your backend .env
 
-- OAuth & Permissions
+   - go to OAuth & Permissions section (below basic informations find it)
 
-- Enable token rotation for refresh token
+      - Enable token rotation for refresh token
 
-- Redirect URLs → Add https://your-ngrok-url/auth/callback
+      - Redirect URLs → Add https://your-ngrok-url/auth/callback
 
-- bot-Scopes:
+      - bot-Scopes:
 
-   - chat:write
+         - chat:write
 
-   - channels:read
+         - channels:read
 
-   - groups:read
+         - groups:read
 
-- Copy the Client ID and Client Secret into your .env files
+- Go to your community for which you created slack-app
+   - make sure to add your slack app in channels where you want to send messages which is done by manual invites in channel that you have to done by yourself 
 
 
 
@@ -181,23 +183,24 @@ Enable the following:
 1) Scheduled Messages Not Working After Deployment?
    - Likely reasons:
 
-      - Free hosting platforms (like Render) sleep when idle, pausing the scheduler
+      - Free hosting platforms (like Render) sleep when idle, pausing the scheduler 
 
       - SQLite database on free hosting may reset or not persist across restarts
 
    - Solution for Production:
 
-      - Use a paid hosting plan or dedicated server to prevent sleeping
+      - Use a paid hosting plan or dedicated server to prevent sleeping or use render background worker for scheduling
 
-      - Consider a more robust DB like PostgreSQL or MongoDB for persistence
+      - Consider a more robust DB like MySQL or MongoDB for persistence
 
 2) Slack OAuth Complexity:
-    - Handling redirect URLs with ngrok during development was tricky. Careful .env management solved it.
+    - Handling redirect URLs with ngrok during development was tricky beacuse in development we get http port for Oauth redirect URL we need https. Careful .env management solved it.
 
 3) Refresh Token Logic:
     - Slack uses refresh tokens for long-term access. Refresh flow implemented in slackServices.ts ensures seamless user experience without repeated login.
 
-
+4) Scheduling:
+    - Currently in our backend we inplement a Scheduler which check database for scheduled messages in every 60 sec. But we need more reliable scheduler.
 
 ---
 
